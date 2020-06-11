@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Report Post Demo</title>
+        <style>
+            :root {
+                --vue-green: #41B883;
+                --vue-blue: #35495E;
+                --main-text-color: #fff;
+                --accent-color: #999;
+                --attention: gold;
+                --alternate-text-color: black;
+            }
+
+            body {
+                background: var(--vue-blue);
+                color: var(--main-text-color);
+            }
+
+            .divider {
+                border-top: 2px dashed var(--accent-color);
+            }
+
+            .explanation {
+                background: var(--attention);
+                color: var(--alternate-text-color);
+                padding: 1rem;
+                width: 20rem;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="app">
+            <!-- Page Description Component -->
+            <!-- v-bind:des and :des is the same thing just shorthand method -->
+            <page-description v-bind:url="link" :des="descriptions"></page-description>
+
+            <!-- Report Post Component -->
+            <report-post v-for="student in studentData" :name="student.name" :grade="student.grade"></report-post>
+
+        </div>
+        <!-- Import Vue js -->
+        <script src="https://cdn.jsdelivr.net/vue/latest/vue.js"></script>
+
+        <!-- Page Description template -->
+
+        <script type="text/x-template" id="description-template">
+            <div class="explanation">
+                <h1>EXPLANATION:</h1>
+                <p v-for="description in des"> {{ description }} </p>
+                <a v-bind:href="url">{{ url }}</a>
+            </div>
+        </script>
+
+        <!-- Report Post template -->
+
+        <script type="text/x-template" id="report-post-template">
+            <div>
+                <h2>{{ name }}</h2>
+                <p>{{ name }}'s grade is: {{ grade }}</p>
+                <div class="divider"></div>
+            </div>
+        </script>
+        <script>
+            // Page Description Component
+            let PageDescription = {
+                template: "#description-template",
+                props: ['url', 'des']
+            }
+
+            // Report Post Component
+            let ReportPost = {
+                template: "#report-post-template",
+                props: ['name', 'grade']
+            }
+
+            // Vue Instance
+            new Vue({
+                el: '#app',
+                components: {
+                    'page-description': PageDescription,
+                    reportPost: ReportPost
+                },
+                data() {
+                    return {
+                        studentData: [{
+                                name: 'Jason Martin',
+                                grade: 100
+                            },
+                            {
+                                name: 'Cersei Lannister',
+                                grade: 88
+                            },
+                            {
+                                grade: 94
+                            },
+                            {
+                                name: 'Joffrey Baratheon'
+                            },
+                            {
+                                name: 'Tyrion Lannister',
+                                grade: 87
+                            },
+                            {
+                                name: 'Arya Stark',
+                                grade: 96
+                            },
+                            {
+                                name: 'Ramsay Bolton'
+                            }
+                        ],
+                        descriptions: [
+                            "This is a simple example on how to use components with Vue.js. I've created a component called 'report' and used it for each item in the studentData array.",
+                            "I also gave an example on how to pass props (data) into a component, how to validate the data and how to have default data in case nothing is passed in.",
+                            "If you want to make your own Vue.js pens, I created a template you can fork here:"
+                        ],
+                        link: "https://codepen.io/jasonamartin/pen/ZJzKve"
+                    }
+                },
+            })
+        </script>
+    </body>
+
+</html>

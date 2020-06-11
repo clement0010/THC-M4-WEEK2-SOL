@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Component Demo</title>
+    </head>
+
+    <body>
+        <div id="app1">
+            <!-- Plus Button Component -->
+
+            <!-- Minus Button Component -->
+
+            <!-- Math Buttons Component -->
+            <math-buttons></math-buttons>
+            <math-buttons></math-buttons>
+
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/vue/latest/vue.js"></script>
+
+        <script type="text/x-template" id="plus-button-template">
+            <button @click="increaseByOne">Increase {{ count }}</button>
+        </script>
+
+        <script type="text/x-template" id="minus-button-template">
+            <button @click="decreaseByOne">Decrease {{ count }}</button>
+        </script>
+
+        <script type="text/x-template" id="math-buttons-template">
+            <div>
+                <plus-button></plus-button>
+                <minus-button></minus-button>
+            </div>
+        </script>
+
+
+        <script>
+            // Plus Button Component
+            // Global Components
+            Vue.component("plus-button", {
+                template: "#plus-button-template",
+
+                data() {
+                    return {
+                        count: 0
+                    }
+                },
+
+                methods: {
+                    increaseByOne: function () {
+                        this.count++
+                    }
+                }
+            })
+
+            // Local Components
+            let PlusButton = {
+                template: '#plus-button-template',
+                data() {
+                    return {
+                        count: 0
+                    }
+                },
+
+                methods: {
+                    increaseByOne: function () {
+                        this.count++
+                    }
+                }
+            }
+
+            // Minus Button Component
+            // Vue.component("minus-button", {
+            //     template: "#minus-button-template",
+
+            //     data() {
+            //         return {
+            //             count: 0
+            //         }
+            //     },
+
+            //     methods: {
+            //         decreaseByOne: function () {
+            //             this.count--
+            //         }
+            //     }
+            // })
+
+            let MinusButton = {
+                template: '#minus-button-template',
+                data() {
+                    return {
+                        count: 0
+                    }
+                },
+
+                methods: {
+                    decreaseByOne: function () {
+                        this.count--
+                    }
+                }
+            }
+            // Math Buttons Component
+            let MathButtons = {
+                template: "#math-buttons-template",
+                components: {
+                    "plus-button": PlusButton,
+                    "minus-button": MinusButton
+                }
+            }
+
+
+            // Vue js Instance
+            var vm = new Vue({
+                el: '#app1',
+                components: {
+                    mathButtons: MathButtons,
+                }
+            });
+        </script>
+    </body>
+
+</html>
